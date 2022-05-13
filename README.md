@@ -2,9 +2,10 @@
 
 This is my attempt at using the at platform in my instagram clone app. The at\_ packages that it uses are: `at_client_mobile` and `at_app_flutter`.
 
-## Image
+## Images
 
-![instagram clone app image](https://i.imgur.com/Edk2bGF.png)
+![instagram clone app image](https://i.imgur.com/Edk2bGF.png) \
+![Edit profile screen](https://i.imgur.com/rupqIMO.png)
 
 ## pubspec.yaml
 
@@ -169,7 +170,7 @@ Future<void> goToInstagramClone(BuildContext context) async {
   AtValue followingAV = await atClient.get(followingAK);
   AtValue postsAV = await atClient.get(postsAK);
   AtValue imageUrlAV = await atClient.get(imageUrlAK);
-  
+
   // 7. Do whatever you want with the data
   Navigator.of(context).pushReplacement(
     MaterialPageRoute(
