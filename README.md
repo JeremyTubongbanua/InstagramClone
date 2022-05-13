@@ -78,7 +78,7 @@ AtEnv.appApiKey // from .env
 ```
 
 ## AtClientPreference Example
-
+AtClientPreference will be needed by the Onboarding widget and the AtClientManager.
 ```dart
 // 1. Import at_client_mobile or at_client
 import 'package:at_client_mobile/at_client_mobile.dart';
@@ -98,6 +98,8 @@ preference.isLocalStoreRequired = true;
 ## Onboarding Widget Example
 
 Onboarding is the act of putting your at sign where the app "logs in to you."
+- Ran into problems when using the `at_onboarding_flutter` package from `pub.dev`. So instead, `at_app_flutter` was used since it was exported in there.
+- Be sure to check both the `android/build.gradle` and `android/app/build.gradle`changes above if you're running into errors when trying to use this widget.
 
 ```dart
 // Simply instantiate the object where a "_show()" method will be called in the constructor (if you dig deep, you will see it).
