@@ -4,7 +4,7 @@ This is my attempt at using the at platform in my instagram clone app. The at\_ 
 
 ## Image
 
-![]('https://i.imgur.com/Edk2bGF.png')
+![Sample]('https://i.imgur.com/Edk2bGF.png')
 
 ## pubspec.yaml
 
