@@ -1,8 +1,10 @@
 # InstagramClone
 
+This is my attempt at using the at platform in my instagram clone app. The at\_ packages that it uses are: `at_client_mobile` and `at_app_flutter`.
+
 ## Image
 
-!('https://i.imgur.com/Edk2bGF.png')
+![]('https://i.imgur.com/Edk2bGF.png')
 
 ## pubspec.yaml
 
