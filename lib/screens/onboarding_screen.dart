@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/screens/debug_screen.dart';
+import 'package:instagram_clone/screens/buttons_screen.dart';
 
 import 'package:path_provider/path_provider.dart';
 
@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     // final Widget nextScreen = ProfileDetailScreen(atSign, atSign, 'https://upload.wikimedia.org/wikipedia/en/5/53/Spy_x_Family_key_visual.jpg', 'Spy X Family best anime', 232, 232, 232);
 
-    final Widget nextScreen = DebugScreen();
+    final Widget nextScreen = ButtonsScreen();
 
     // important to leave "atSign" param out
     Onboarding(

@@ -8,8 +8,10 @@ This is my attempt at using the at platform in my instagram clone app. The at\_ 
 
 ## pubspec.yaml
 
-Versions may be important
+At\_ packages versions may be important.
 
+-   `path_provider: ^2.0.10`
+-   `intl: ^0.17.0`
 -   `at_client_mobile: ^3.0.22` (`at_commons` export is missing from `3.0.3`).
 -   `at_app_flutter: ^5.0.0` (untested, but snackbar demo uses `^5.0.0` instead of `^5.0.0+1`)
 
@@ -78,7 +80,9 @@ AtEnv.appApiKey // from .env
 ```
 
 ## AtClientPreference Example
+
 AtClientPreference will be needed by the Onboarding widget and the AtClientManager.
+
 ```dart
 // 1. Import at_client_mobile or at_client
 import 'package:at_client_mobile/at_client_mobile.dart';
@@ -98,8 +102,9 @@ preference.isLocalStoreRequired = true;
 ## Onboarding Widget Example
 
 Onboarding is the act of putting your at sign where the app "logs in to you."
-- Ran into problems when using the `at_onboarding_flutter` package from `pub.dev`. So instead, `at_app_flutter` was used since it was exported in there.
-- Be sure to check both the `android/build.gradle` and `android/app/build.gradle`changes above if you're running into errors when trying to use this widget.
+
+-   Ran into problems when using the `at_onboarding_flutter` package from `pub.dev`. So instead, `at_app_flutter` was used since it was exported in there.
+-   Be sure to check both the `android/build.gradle` and `android/app/build.gradle`changes above if you're running into errors when trying to use this widget.
 
 ```dart
 // Simply instantiate the object where a "_show()" method will be called in the constructor (if you dig deep, you will see it).
@@ -126,46 +131,56 @@ Onboarding(
 -   Uses `AtKey` & `AtValue` from `at_commons` exported from `at_client_mobile ^3.0.22` (wasn't exported in `^3.0.3`).
 
 ```dart
-Future<void> onPress(BuildContext context) async {
+Future<void> goToInstagramClone(BuildContext context) async {
   // 1. Get AtClientManager instance
   AtClientManager atClientManager = AtClientManager.getInstance();
+
   // 2. Get AtClient instance
   AtClient atClient = atClientManager.atClient;
-  print('Current @ sign: ${atClient.getCurrentAtSign()}');
-  // 3. Make an AtKey
-  AtKey atKey = AtKey();
-  atKey.key = 'data';
-  atKey.sharedWith = null;
-  atKey.sharedBy = atClient.getCurrentAtSign();
-  atKey.namespace = AtEnv.appNamespace;
-  // 3.5. Make a Metadata
+  // unnecessary, but you can get the current at sign
+  final String atSign = atClient.getCurrentAtSign()!;
+  print('Current @ sign: $atSign');
+
+  // 3. Make AtKey instances
+  AtKey followersAK = AtKey();
+  followersAK.key = 'followers';
+  // syntax same as above.
+  AtKey followingAK = AtKey()..key = 'following';
+  AtKey postsAK = AtKey()..key = 'posts';
+  AtKey imageUrlAK = AtKey()..key = 'imageUrl';
+
+  // 3.5. Make a Metadata (optional)
   Metadata metaData = Metadata();
   metaData.namespaceAware = true;
   metaData.isPublic = true;
   metaData.isEncrypted = true;
-  atKey.metadata = metaData;
+  // followersAK.metadata = metaData; uncommnet this if u want to use meta data in ur AtKey
+
   // 4. Data you want to encrypt
   const String data = 'https://i.imgur.com/msVdDTo.png';
+
   // 5. AtClient.put
-  bool success = await atClient.put(
-    atKey,
-    data,
-  );
+  bool success = await atClient.put(imageUrlAK, data);
   print('Success: $success');
+
   // 6. AtClient.get
-  AtValue atValue = await atClient.get(atKey);
-  print('AtValue: ${atValue.value}');
+  AtValue followersAV = await atClient.get(followersAK);
+  print('AtValue: ${followersAV.value}');
+  AtValue followingAV = await atClient.get(followingAK);
+  AtValue postsAV = await atClient.get(postsAK);
+  AtValue imageUrlAV = await atClient.get(imageUrlAK);
+  
   // 7. Do whatever you want with the data
   Navigator.of(context).pushReplacement(
     MaterialPageRoute(
       builder: (ctx) => ProfileDetailScreen(
-        atKey.sharedBy!,
-        atKey.sharedBy!,
-        atValue.value,
-        'Spy X family pog',
-        232,
-        111,
-        22,
+        atSign, // String profileHandle
+        atSign, // String profileName
+        imageUrlAV.value, // String imageUrl
+        'Spy X family pog', // String description
+        int.parse(followersAV.value), // int followers
+        int.parse(followingAV.value), // int following
+        int.parse(postsAV.value), // int posts
       ),
     ),
   );

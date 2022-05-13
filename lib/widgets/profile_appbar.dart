@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/screens/buttons_screen.dart';
 
 class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String profileHandle;
@@ -27,7 +28,9 @@ class _ProfileAppBarState extends State<ProfileAppBar> {
           Icons.arrow_back_ios,
           color: Colors.black,
         ),
-        onPressed: () {},
+        onPressed: () async {
+          await Navigator.of(context).pushReplacementNamed(ButtonsScreen.id);
+        },
       ),
       actions: const [
         Icon(Icons.more_horiz, color: Colors.black),
