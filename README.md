@@ -57,6 +57,29 @@ android {
 }
 ```
 
+or
+
+```
+defaultConfig {
+  compileSdkVersion 29
+  minSdkVersion 24
+  targetSdkVersion 29
+}
+```
+
+## AndroidManifest.xml
+
+```
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-feature android:name="android.hardware.camera" />
+<uses-feature android:name="android.hardware.camera.autofocus" />
+<uses-feature android:name="android.hardware.camera.flash" />
+```
+
 ## AtEnv
 
 AtEnv is a class from `at_app_flutter`. It gives helpful methods and variables like:
